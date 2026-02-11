@@ -1,0 +1,67 @@
+.explanation-panel {
+  margin-top: auto;
+  border-top: 1px solid #e5e7eb;
+  background: white;
+}
+
+.explanation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.explanation-header:hover {
+  background: #f9fafb;
+}
+
+.explanation-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.explanation-icon {
+  font-size: 16px;
+}
+
+.explanation-title h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.explanation-content {
+  padding: 0 16px 16px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #374151;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.bullet-item {
+  margin-left: 20px;
+  margin-bottom: 4px;
+  list-style-type: disc;
+}
+
+.explanation-section {
+  margin-bottom: 8px;
+}
+
+.explanation-section strong {
+  color: #111827;
+  margin-right: 4px;
+}
