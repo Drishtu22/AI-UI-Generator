@@ -1,22 +1,5 @@
 services:
-  # =========================
-  # 🚀 Backend Service
-  # =========================
-  - type: web
-    name: ai-ui-backend
-    env: node
-    region: oregon
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: node server.js
-    autoDeploy: true
-    envVars:
-      - key: NODE_VERSION
-        value: 18
-      - key: OPENAI_API_KEY
-        sync: false
-
-  # =========================
+# =========================
   # 🎨 Frontend Service
   # =========================
   - type: web
