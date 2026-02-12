@@ -6,7 +6,6 @@ services:
     name: ai-ui-backend
     env: node
     region: oregon
-    plan: free
     rootDir: backend
     buildCommand: npm install
     startCommand: node server.js
@@ -18,12 +17,11 @@ services:
         sync: false
 
   # =========================
-  # 🎨 Frontend Service (Static Site)
+  # 🎨 Frontend Service
   # =========================
   - type: web
     name: ai-ui-frontend
     env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: build
