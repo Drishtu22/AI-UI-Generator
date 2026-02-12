@@ -8,43 +8,44 @@ const PreviewPanel = ({ code, isLoading }) => {
   const [GeneratedComponent, setGeneratedComponent] = useState(null);
 
   useEffect(() => {
-    if (!code) {
-      setGeneratedComponent(null);
-      return;
-    }
+    // 🔥 Force reset before recompiling (fixes reload glitch)
+    setGeneratedComponent(null);
+    setRenderError(null);
+
+    if (!code) return;
 
     try {
-      setRenderError(null);
-      
-      // Transform JSX to JavaScript using Babel
+      // Transform JSX → JS
       const transformedCode = Babel.transform(code, {
         presets: ['react'],
         filename: 'component.jsx'
       }).code;
 
-      // Clean the transformed code
+      // Clean unwanted syntax
       let processedCode = transformedCode
-        .replace(/import\s+.*?from\s+['"].*?['"];?\n?/g, '') // Remove import statements
-        .replace(/export\s+default\s+.*?;?\n?/g, '') // Remove export default
-        .replace(/export\s+const\s+(\w+)/g, 'const $1') // Remove export const
-        .replace(/export\s+function\s+(\w+)/g, 'function $1') // Remove export function
-        .replace(/"use strict";?\n?/g, '') // Remove strict mode
+        .replace(/import\s+.*?from\s+['"].*?['"];?\n?/g, '')
+        .replace(/export\s+default\s+.*?;?\n?/g, '')
+        .replace(/export\s+const\s+(\w+)/g, 'const $1')
+        .replace(/export\s+function\s+(\w+)/g, 'function $1')
+        .replace(/"use strict";?\n?/g, '')
         .trim();
 
-      // Extract component name
+      // Extract component name safely
       let componentName = 'GeneratedUI';
-      const constMatch = processedCode.match(/var\s+(\w+)\s*=\s*function\s*\(|const\s+(\w+)\s*=\s*function\s*\(|var\s+(\w+)\s*=\s*\(\)|const\s+(\w+)\s*=\s*\(\)/);
-      
-      if (constMatch) {
-        componentName = constMatch[1] || constMatch[2] || constMatch[3] || constMatch[4];
+      const match = processedCode.match(
+        /(?:var|const)\s+(\w+)\s*=\s*function|\bfunction\s+(\w+)\s*\(/
+      );
+
+      if (match) {
+        componentName = match[1] || match[2];
       }
 
-      // Ensure the component is returned
+      // Ensure component is returned
       if (!processedCode.includes(`return ${componentName}`)) {
         processedCode += `\nreturn ${componentName};`;
       }
 
-      // Create component using Function constructor
+      // Create safe function wrapper
       const ComponentFunction = new Function(
         'React',
         'useState',
@@ -59,18 +60,20 @@ const PreviewPanel = ({ code, isLoading }) => {
         React.useEffect,
         ...Object.values(ComponentLibrary)
       );
-      
+
       if (typeof Component === 'function') {
+        // 🔥 Force new reference every time
         setGeneratedComponent(() => Component);
       } else {
         throw new Error('Generated code did not produce a valid component');
       }
-      
+
     } catch (error) {
       console.error('Preview error:', error);
       setRenderError(error.message);
     }
-  }, [code]);
+
+  }, [code]); // 👈 re-run every time code changes
 
   if (isLoading) {
     return (
@@ -118,6 +121,7 @@ const PreviewPanel = ({ code, isLoading }) => {
           {GeneratedComponent ? 'Component ready' : 'Loading...'}
         </span>
       </div>
+
       <div className="preview-content">
         {GeneratedComponent && <GeneratedComponent />}
       </div>

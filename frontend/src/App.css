@@ -1,3 +1,13 @@
+/* Global Reset */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /* App Container */
 .app {
   display: flex;
@@ -6,7 +16,7 @@
   overflow: hidden;
 }
 
-/* Header Styles */
+/* Header */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -15,6 +25,7 @@
   height: 64px;
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
 }
 
 .header-left {
@@ -29,32 +40,10 @@
   gap: 8px;
 }
 
-.logo-icon {
-  font-size: 24px;
-}
-
 .logo h1 {
   font-size: 18px;
   font-weight: 600;
-  color: #111827;
   margin: 0;
-}
-
-.badge {
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.badge.deterministic {
-  background-color: #e0f2fe;
-  color: #0369a1;
-}
-
-.badge.agent {
-  background-color: #f3e8ff;
-  color: #6b21a8;
 }
 
 /* Error Banner */
@@ -65,45 +54,45 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #fecaca;
-}
-
-.error-banner button {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: #991b1b;
-  cursor: pointer;
+  flex-shrink: 0;
 }
 
 /* Main Layout */
 .main-layout {
   display: flex;
   flex: 1;
+  min-height: 0;   /* 🔥 CRITICAL FIX */
   overflow: hidden;
 }
 
+/* Left Panel */
 .left-panel {
   width: 400px;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #e5e7eb;
   background-color: white;
+  min-height: 0;   /* 🔥 CRITICAL FIX */
+  overflow: hidden;
 }
 
+/* Right Panel */
 .right-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
   background-color: #f9fafb;
+  min-height: 0;   /* 🔥 CRITICAL FIX */
+  overflow: hidden;
 }
 
-/* Tab Styles */
+/* Tabs */
 .tab-header {
   display: flex;
   padding: 0 16px;
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
 }
 
 .tab-button {
@@ -113,13 +102,7 @@
   border-bottom: 2px solid transparent;
   font-size: 14px;
   font-weight: 500;
-  color: #6b7280;
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-.tab-button:hover {
-  color: #111827;
 }
 
 .tab-button.active {
@@ -127,27 +110,20 @@
   border-bottom-color: #2563eb;
 }
 
+/* Tab Content */
 .tab-content {
   flex: 1;
+  min-height: 0;   /* 🔥 CRITICAL FIX */
   overflow: auto;
   padding: 16px;
 }
 
-/* Scrollbar Styles */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a1;
 }
