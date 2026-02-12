@@ -14,18 +14,15 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 18
-      - key: PORT
-        value: 5001
       - key: OPENAI_API_KEY
-        sync: false   # Set manually in Render dashboard
+        sync: false
 
   # =========================
-  # 🎨 Frontend Service
+  # 🎨 Frontend Service (Static Site)
   # =========================
   - type: web
     name: ai-ui-frontend
     env: static
-    region: oregon
     plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
