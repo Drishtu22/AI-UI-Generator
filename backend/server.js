@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import agentRoutes from './routes/agentroutes.js';
+import agentRoutes from './routes/agentRoutes.js';
 import versionRoutes from './routes/versionRoutes.js';
 
 // Load env variables - ONCE
