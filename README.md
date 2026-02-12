@@ -119,6 +119,53 @@ AI-UI-Generator/
 │
 └── README.md
 
+🚀 Setup Instructions
+1)✅ Prerequisites
+
+Make sure you have installed:
+
+Node.js (v18 or higher recommended)
+npm (comes with Node)
+A Groq API Key
+Check installation
+1️⃣ Clone the Project
+2️⃣ Setup Backend
+Create environment file
+
+Create a file named:
+.env
+*Inside backend folder and add:
+*GROQ_API_KEY=your_actual_groq_api_key_here
+*PORT=5000
+
+Start backend server->
+node server.js
+If using nodemon:
+npx nodemon server.js
+You should see:
+Server running on http://localhost:5000
+
+
+3️⃣ Setup Frontend
+Go to frontend folder
+cd frontend
+
+Install dependencies
+npm install
+Start React app
+npm start
+App will open at:
+http://localhost:3000
+
+*Test Groq Connection (Optional)
+
+Inside backend folder:
+node test-groq.js
+
+If working, you will see:
+
+✅ Success:
+Hello! How are you today?
 
 🎯 Assignment Compliance
 
