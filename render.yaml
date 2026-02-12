@@ -1,0 +1,36 @@
+services:
+  # =========================
+  # 🚀 Backend Service
+  # =========================
+  - type: web
+    name: ai-ui-backend
+    env: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: PORT
+        value: 5001
+      - key: OPENAI_API_KEY
+        sync: false   # Set manually in Render dashboard
+
+  # =========================
+  # 🎨 Frontend Service
+  # =========================
+  - type: web
+    name: ai-ui-frontend
+    env: static
+    region: oregon
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    autoDeploy: true
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://ai-ui-backend.onrender.com/api
